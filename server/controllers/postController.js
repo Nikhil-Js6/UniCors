@@ -64,6 +64,24 @@ class PostController {
             return res.status(500).json('Something went wrong!');
         }
     }
+
+    async userFeed (req, res) {
+        try {
+            const user = await User.findById(req.user._id);
+            let followings = user.followings;
+            followings.push(user._id);
+
+            const posts = await Post.find({ postedBy: { $in : followings } })
+               .populate("postedBy", "name, image, _id")
+               .sort({ createdAt: -1 })
+               .limit(10);
+            return res.status(200).json(posts);
+        }
+        catch (err) {
+            console.log(err);
+            return res.status(500).json('Something went wrong!');
+        }
+    }
 }
 
 module.exports = new PostController();
