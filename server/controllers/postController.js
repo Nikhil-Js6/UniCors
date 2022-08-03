@@ -1,4 +1,5 @@
 const Post = require('../models/Post');
+const User = require('../models/User');
 const cloudinary = require('cloudinary');
 
 cloudinary.config({
@@ -13,14 +14,15 @@ class PostController {
         
         const { content, image } = req.body;
 
+        const user = await User.findById(req.user._id);
+
         if(!content.length) {
             return res.status(400).json({
                 error: 'Content is required!'
             });
         }
         try {
-            console.log(req.user._id);
-            const newPost = new Post({ content, image, postedBy: req.user._id });
+            const newPost = new Post({ content, image, postedBy: user._id, username: user.name });
             newPost.save();
             console.log(newPost);
             return res.status(201).json({
@@ -53,10 +55,11 @@ class PostController {
 
     async userPosts (req, res) {
         try {
-            const posts = await Post.find({ postedBy: req.user._id })
-               .populate("postedBy", "name, _id, image")
+            const posts = await Post.find({ postedBy: req.body._id })
+               .populate('postedBy', 'name image _id')
+               .populate('comments.postedBy', 'name image _id')
                .sort({ createdAt: -1 })
-               .limit(10);
+               .limit(50);
             return res.status(200).json(posts);
         }
         catch (err) {
@@ -72,14 +75,81 @@ class PostController {
             followings.push(user._id);
 
             const posts = await Post.find({ postedBy: { $in : followings } })
-               .populate("postedBy", "name, image, _id")
+               .populate('postedBy', 'name image _id')
+               .populate('comments.postedBy', 'name image _id')
                .sort({ createdAt: -1 })
-               .limit(10);
+               .limit(50);
             return res.status(200).json(posts);
         }
         catch (err) {
             console.log(err);
             return res.status(500).json('Something went wrong!');
+        }
+    }
+
+    async likePost (req, res) {
+        try {
+            const post = await Post.findByIdAndUpdate({ _id: req.body._id }, 
+            {
+                $addToSet : { likes: req.user._id }
+            },
+                { new: true }
+            );
+            return res.status(200).json(post);
+        } 
+        catch (err) {
+            console.log(err);
+        }
+    }
+    
+    async unlikePost (req, res) {
+        try {
+            const post = await Post.findByIdAndUpdate({ _id: req.body._id }, 
+            {
+                $pull : { likes: req.user._id }
+            },
+                { new: true }
+            );
+            return res.status(200).json(post);
+        } 
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    async addComment (req, res) {
+        try {
+            const text = req.body.comment;
+            const post = await Post.findByIdAndUpdate({ _id: req.body._id }, 
+            {
+                $push : { comments: { text, postedBy: req.user._id } }
+            },
+                { new: true }
+            )
+               .populate('postedBy', 'name image _id')
+               .populate('comments.postedBy', 'name image _id')
+               .sort({ created: -1 });
+            return res.status(200).json(post);
+        } 
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    async removeComment (req, res) {
+        try {
+            const comment = req.body.comment;
+            const post = await Post.findByIdAndUpdate({ _id: req.body._id }, 
+            {
+                $pull : { comments: { _id: comment._id } }
+            },
+                { new: true }
+            )
+               .sort({ created: -1 });
+            return res.status(200).json(post);
+        } 
+        catch (err) {
+            console.log(err);
         }
     }
 }
