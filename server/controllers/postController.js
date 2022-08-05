@@ -53,9 +53,41 @@ class PostController {
         }
     }
 
-    async userPosts (req, res) {
+    async getPost (req, res) {
         try {
-            const posts = await Post.find({ postedBy: req.body._id })
+            const post = await Post.findById(req.params.id)
+               .populate('postedBy', 'name image _id')
+               .populate('comments.postedBy', 'name image _id')
+            return res.status(200).json(
+                post
+            );
+        } 
+        catch (err) {
+            console.log(err);
+            return res.status(501).json('Something went wrong!')
+        }
+    }
+
+    async deletePost (req, res) {
+        try {
+            await Post.findByIdAndDelete(req.params.id);
+            return res.status(203).json({
+                message: 'Post deleted'
+            });
+        } 
+        catch (err) {
+            console.log(err);
+            return res.status(501).json('Something went wrong!')
+        }
+    }
+    
+    async userFeed (req, res) {
+        try {
+            const user = await User.findById(req.user._id);
+            let followings = user.followings;
+            followings.push(user._id);
+
+            const posts = await Post.find({ postedBy: { $in : followings } })
                .populate('postedBy', 'name image _id')
                .populate('comments.postedBy', 'name image _id')
                .sort({ createdAt: -1 })
@@ -67,14 +99,10 @@ class PostController {
             return res.status(500).json('Something went wrong!');
         }
     }
-
-    async userFeed (req, res) {
+    
+    async userPosts (req, res) {
         try {
-            const user = await User.findById(req.user._id);
-            let followings = user.followings;
-            followings.push(user._id);
-
-            const posts = await Post.find({ postedBy: { $in : followings } })
+            const posts = await Post.find({ postedBy: req.body._id })
                .populate('postedBy', 'name image _id')
                .populate('comments.postedBy', 'name image _id')
                .sort({ createdAt: -1 })
