@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const uniqid = require('uniqid');
 
 
 class AuthController {
@@ -22,12 +23,11 @@ class AuthController {
                     error: 'Please pick a question',
                 })
             }
-
-        //Generate hashed password:
+        
             const hashed_password = bcrypt.hashSync(password, 12);
-
-        // Create new user:
-            const newUser = new User({ name, email, hashed_password, secret, secret_key });
+            const userId = uniqid();
+        
+            const newUser = new User({ name, email, hashed_password, userId, secret, secret_key });
 
             newUser.save((err, user) => {
                 if (err) {
@@ -52,14 +52,14 @@ class AuthController {
             const user = await User.findOne({ email });
 
             if (!user) {
-                return res.status(400).json({
+                return res.json({
                     error: 'User doesn\'t exist!'
                 });
             }
 
             const validPassword = bcrypt.compareSync(password, user.hashed_password);
             if (!validPassword) { 
-                return res.status(400).json({
+                return res.json({
                     error: 'Incorrect Password!'
                 });
             }
@@ -69,7 +69,7 @@ class AuthController {
             const { hashed_password, secret, secret_key, ...userInfo } = user._doc;
 
             return res.status(200).json({
-                message: 'Logged in successfully',
+                message: 'Logged in successfully!',
                 userInfo,
                 token
             });
@@ -77,16 +77,36 @@ class AuthController {
         catch (err) {
             console.log(err);
             return res.status(400).json({
-                error: 'Server error. Try again!'
+                message: 'Server error. Try again!'
             });
         }
     }
 
     async verifyUser (req, res) {
+
         const userId = req.user._id;
+
         try {
             const user = await User.findById(userId);
             if (user) {
+                return res.status(200).json({ verified: true });
+            }
+        }
+        catch (err) {
+            return res.status(500).json({
+                error: 'Can\'t verify user!',
+                verified: false
+            });
+        }
+    }
+    
+    async verifyAdmin (req, res) {
+
+        const userId = req.user._id;
+        
+        try {
+            const user = await User.findById(userId);
+            if (user.role === 'admin') {
                 return res.status(200).json({ verified: true });
             }
         }
