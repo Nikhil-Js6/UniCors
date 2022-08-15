@@ -36,8 +36,16 @@
 .login:hover{
     border: 1px solid #1775e7;
 }
+.demoLink{
+    font-size: 14px;
+    color: #1775e5;
+    cursor: pointer;
+}
+.demoLink:hover{
+    color: rgb(252, 119, 119);
+}
 .registerLink{
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 10px;
     color: grey;
     font-size: 14px;
