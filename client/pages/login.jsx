@@ -1,33 +1,57 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { UserContext } from '../context'
 import AuthForm from '../components/forms/AuthForm'
 import Router from 'next/router'
 import Link from 'next/link'
+import { Alert } from '../utils/Alerts'
+import styles from '../styles/Login.module.css'
 import axios from 'axios'
-import styles from '../styles/login.module.css'
+
 
 const Login = () => {
 
-    const [email, setEmail] = useState('nikhil@123');
-    const [password, setPassword] = useState('123456789');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [visible, setVisible] = useState(false);
     const [message, setMessage] = useState(null);
     const [type, setType] = useState(0);
     const [loading, setLoading] = useState(false);
+    const [demo, setDemo] = useState(true);
 
     const [state, setState] = useContext(UserContext);
 
+    useEffect(() => {
+        if (email === '' || password === '') {
+            setDemo(true);
+        }
+    }, [email, password]);
+
     const handleChange = (target) => {
-        setMessage(false)
+        setMessage(false);
         target.name === 'name' ? setName(target.value)
         : target.name === 'email' ? setEmail(target.value)
-        : setPassword(target.value)
+        : setPassword(target.value);
     }
 
     const reset = () => {
-        setEmail('')
-        setPassword('')
-        Router.push('/')
+        setEmail('');
+        setPassword('');
+        Router.push('/');
+    }
+
+    const activateDemo = () => {
+        setEmail('demo@123');
+        setPassword('12345678');
+        setDemo(false);
+    }
+
+    const alertMessage = (msg, type) => {
+        setLoading(false);
+        setMessage(msg);
+        setType(type);
+        setTimeout(() => {
+            setMessage(false);
+        }, 3000);
     }
 
     const handleSubmit = async e => {
@@ -38,33 +62,30 @@ const Login = () => {
             const res = await axios.post(`/login`, {
                 email, password
             });
-
             if (res.data.error) {
-                setMessage(res.data.error);
-                setType(2);
+                alertMessage(res.data.error, 2);
+                return;
             }
-            
-            setState({
-                user: res.data.userInfo,
-                token: res.data.token
-            });
+            if (res.data) {
+                setState({
+                    user: res.data.userInfo,
+                    token: res.data.token
+                });
 
-            localStorage.setItem('Unicors_User', JSON.stringify(res.data));
+                localStorage.setItem('Unicors_User', JSON.stringify({ 
+                    userInfo: res.data.userInfo, 
+                    token: res.data.token 
+                }));
 
-            setMessage(res.data.message);
-            setType(1);
-            
-            reset();
-            setLoading(false);
+                alertMessage(res.data.message, 1);
+                reset();
+            }
         }
         catch (err) {
+            console.log(err);
+            alertMessage('Can\'t process request!', 2);
             setLoading(false);
-            setMessage(err.message);
-            setType(2);
         }
-        setTimeout(() => {
-            setMessage(false);
-        }, 3000);
     }
 
     if(state && state.token) Router.push('/');
@@ -75,7 +96,7 @@ const Login = () => {
             <span className={styles.title}>Login</span>
         </span>
         <div className={styles.login}>
-
+        { message && Alert(message, type) }
             <AuthForm
                 email={email}
                 password={password}
@@ -88,6 +109,9 @@ const Login = () => {
                 handleSubmit={handleSubmit}
                 page={'login'}
             />
+            { demo &&
+                <span className={styles.demoLink} onClick={() => activateDemo()}>Use Demo Account</span> 
+            }
             <span className={styles.registerLink}>
                 Don't have an account?
                 <Link href='/register'>
