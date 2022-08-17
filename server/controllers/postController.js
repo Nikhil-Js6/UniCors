@@ -41,7 +41,7 @@ class PostController {
     async uploadImage (req, res) {
         try {
             const result = await cloudinary.uploader.upload(req.files.image.path);
-            console.log(result);
+            
             return res.status(200).json({
                 url: result.secure_url,
                 public_id: result.public_id
@@ -108,6 +108,21 @@ class PostController {
                .sort({ createdAt: -1 })
                .limit(50);
             return res.status(200).json(posts);
+        }
+        catch (err) {
+            console.log(err);
+            return res.status(500).json('Something went wrong!');
+        }
+    }
+        
+    async allPosts (req, res) {
+        try {
+            const posts = await Post.find()
+               .populate('postedBy', 'name image _id')
+               .populate('comments.postedBy', 'name image _id')
+               .sort({ createdAt: -1 })
+               .limit(50);
+            return res.json(posts);
         }
         catch (err) {
             console.log(err);
