@@ -5,7 +5,7 @@ class UserController {
     async getUser (req, res) {
         try {
             const user = await User.findById(req.body._id)
-               .select('name image followers followings about');
+               .select('-hashed_password -secret -secret_key');
             return res.status(200).json(user);
         } 
         catch (err) {
