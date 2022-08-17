@@ -1,11 +1,10 @@
 import { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
-import Link from 'next/link';
 import { UserContext } from '../../../context';
-import PostCard from '../../../components/cards/PostCard';
 import { Alert } from '../../../utils/Alerts';
+import ProfileCard from '../../../components/cards/ProfileCard';
+import ProfilePostCard from '../../../components/cards/ProfilePostCard';
 import styles from '../../../styles/PublicProfile.module.css'
-import { SyncOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 
@@ -13,6 +12,8 @@ const PublicProfile = () => {
     
     const userId = useRouter().query._id;
     const [state, setState] = useContext(UserContext);
+
+    const [currentUser, setCurrentUser] = useState({});
     
     const [user, setUser] = useState({});
     const [userPosts, setUserPosts] = useState([]);
@@ -27,6 +28,7 @@ const PublicProfile = () => {
 
     useEffect(() => {
         fetchUser();
+        setCurrentUser(state.userInfo);
         fetchUserPosts();
     }, [state && state.token && userId]);
 
@@ -42,6 +44,7 @@ const PublicProfile = () => {
         try {
             const res = await axios.post('/get-user', { _id: userId });
             setUser(res.data);
+            console.log(user);
             setFollowers(res.data?.followers);
             setFollowings(res.data?.followings);
         } 
@@ -51,13 +54,15 @@ const PublicProfile = () => {
     }
 
     const fetchUserPosts = async () => {
-        try {
-            const userPosts = await axios.post('/user-posts', { _id: userId });
-            setUserPosts(userPosts.data);
-        } 
-        catch (err) {
-            console.log(err);
-            alertMessage('Can\'t load posts!', 2);
+        if (user?.status !== 'private') {
+            try {
+                const userPosts = await axios.post('/user-posts', { _id: userId });
+                setUserPosts(userPosts.data);
+            } 
+            catch (err) {
+                console.log(err);
+                alertMessage('Can\'t load posts!', 2);
+            }
         }
     }
     
@@ -122,58 +127,25 @@ const PublicProfile = () => {
             <div className={styles.alertsWrapper}>
                 { message && Alert(message, messageType) }
             </div>
-            <div className={styles.profileCard}>
-                <div className={styles.cardHead}>
-                    <img className={styles.userImg} src={user?.image || '/noImage.jpg'}/>
-                    <div className={styles.userInfo}>
-                        <div className={styles.followInfo}>
-                            <span className={styles.followers}>
-                                <Link href={`/user/followers/${user?._id}`}>
-                                    <a>{followers?.length} Followers</a>
-                                </Link>
-                            </span>
-                            <span className={styles.followings}>
-                                <Link href={`/user/followings/${user?._id}`}>
-                                    <a>{followings?.length} Followings</a>
-                                </Link>
-                            </span>
-                        </div>
-                        
-                        <div className={styles.buttons}>
-                        {
-                            state?.userInfo?._id !== user?._id && 
+            
+            <ProfileCard 
+                user={user}
+                currentUser={currentUser}
+                userPosts={userPosts}
+                followers={followers}
+                followings={followings}
+                loading={loading}
+                handleFollow={handleFollow}
+                handleUnfollow={handleUnfollow}
+            />
 
-                            user?.followers?.includes(state?.userInfo?._id)
-                                ? <span 
-                                    className={`${styles.button} ${styles.unfollow}`} 
-                                    onClick={() => handleUnfollow(user)}
-                                >
-                                    { loading ?  <SyncOutlined /> : 'Unfollow'}
-                                </span>
-                                : <span 
-                                    className={`${styles.button} ${styles.follow}`}
-                                    onClick={() => handleFollow(user)}
-                                >
-                                    { loading ? <SyncOutlined /> :'Follow'}
-                                </span>
-                        }
-                        </div>
-                    </div>
-                </div>
-                <div className={styles.cardBody}>
-                    <span className={styles.username}><h2>Anonymous</h2></span>
-                    <span className={styles.about}>Hello, I am Anonymous, You don't know me.Create any YouTube 
-                    intro in minutes. A strong intro increases view time! 
-                    Use a template or choose from over 110M+ <br /> intro footage options. Brand and share.</span>
-                </div>
-            </div>
-            <div className={styles.post}>
-            {
-                userPosts.length 
-                    ? <PostCard userPosts={userPosts} fetchUserPosts={fetchUserPosts}/> 
-                    : <div className={styles.noPosts}>No Posts!</div>
-            }
-            </div>
+            <ProfilePostCard 
+                user={user}
+                currentUser={currentUser}
+                userPosts={userPosts}
+                fetchUserPosts={fetchUserPosts}
+            />
+
         </div>
     )
 }
