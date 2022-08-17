@@ -7,14 +7,14 @@ const { register,
         verifyUser, 
         verifyAdmin, 
         forgotPassword, 
-        profileUpdate 
+        updateProfile
     } = require('../controllers/authController');
 
 router.post('/register', register);
 router.post('/login', login);
 router.get('/verify-user', verify, verifyUser);
 router.post('/forgot-password', forgotPassword );
-router.put('/profile-update', profileUpdate );
+router.put('/update-profile', updateProfile );
 
 // Admin: 
 router.get('/verify-admin', verify, verifyAdmin);
