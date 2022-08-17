@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     },
     username: {
         type: String,
+        unique: true,
         trim: true
     },
     email: {
@@ -31,6 +32,10 @@ const userSchema = new mongoose.Schema({
     about: {
 
     },
+    status: {
+        type: String,
+        default: 'public',
+    },
     secret: {
         type: String,
         required: true
@@ -40,7 +45,8 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     image: {
-        type: String
+        url: String,
+        public_id: String,
     },
     followings: [
         {
