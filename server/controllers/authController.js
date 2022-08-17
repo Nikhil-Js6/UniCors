@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const uniqid = require('uniqid');
 
-
 class AuthController {
 
     async register (req, res) {
@@ -11,12 +10,17 @@ class AuthController {
         const { name, email, password, secret, answer: secret_key } = req.body;
 
         User.findOne({email}).exec((err, user) => {
+            if (err) {
+                console.log(err);
+                return res.status(401).json({
+                    error: 'Error saving the user!'
+                })
+            }
             if (user) {
                 return res.status(400).json({
                     error: 'Email is already Taken',
                 })
             }
-            console.log(err);
 
             if(!secret || !secret_key) {
                 return res.status(400).json({
@@ -33,7 +37,7 @@ class AuthController {
                 if (err) {
                     console.log(err);
                     return res.status(401).json({
-                        error: 'Error saving the user!'
+                        error: 'Error finding the user!'
                     })
                 }
                 return res.status(201).json({
@@ -88,9 +92,10 @@ class AuthController {
 
         try {
             const user = await User.findById(userId);
-            if (user) {
-                return res.status(200).json({ verified: true });
+            if (!user) {
+                return res.status(400).json({ verified: false });
             }
+            return res.status(200).json({ verified: true });
         }
         catch (err) {
             return res.status(500).json({
@@ -109,6 +114,7 @@ class AuthController {
             if (user.role === 'admin') {
                 return res.status(200).json({ verified: true });
             }
+            return res.status(400).json({ verified: false });
         }
         catch (err) {
             return res.status(500).json({
@@ -167,9 +173,39 @@ class AuthController {
             })
         } 
     }
+    
+    async updateProfile (req, res) {
 
-    async profileUpdate (req, res) {
-        console.log(req.body);
+        let user = req.body;
+
+        if (req.body.password) {
+            user.hashed_password = bcrypt.hashSync(user.password, 12);
+        }
+        
+        try {
+            const updatedUser = await User.findByIdAndUpdate(
+                req.user._id, 
+                user,
+                { new: true }
+            )
+                .select('-hashed_password -secret -secret_key');
+
+            return res.status(200).json({ 
+                message: 'Profile Updated Successfully!',
+                updatedUser
+            });
+        } 
+        catch (err) {
+            console.log(err);
+            if (err.code === 11000) {
+                return res.status(400).json({
+                    error: 'Username is already taken!'
+                });
+            }
+            return res.status(400).json({
+                error: 'Error updating the profile!'
+            });
+        }
     }
 }
 
