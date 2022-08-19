@@ -1,0 +1,71 @@
+/***** Contact *****/
+
+.contactWrapper{
+    margin-top: 50px;
+    min-height: calc(100vh - 110px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+.bg{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90px;
+    background-color: #1775e5;
+    color: #fff;
+    font-size: 32px;
+}
+.title{
+    position: sticky;
+    top: 60px;
+    z-index: 9;
+}
+.alertsWrapper{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+.contact{
+    width: 70%;
+    margin-top: 10px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/***** Terms *****/
+
+.termsWrapper{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+.termsContent{
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+.term{
+    margin: 16px;
+    display: flex;
+    flex-direction: column;
+    color: rgb(60, 60, 60);
+}
+.termTitle{
+    font-weight: 600;
+    color: #1775e5;
+}
+.termText{
+    padding: 5px 10px;
+}
