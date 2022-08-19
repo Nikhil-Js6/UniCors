@@ -1,0 +1,81 @@
+.adminWrapper{
+    margin-top: 50px;
+    min-height: calc(100vh - 110px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+.bg{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90px;
+    background-color: #1775e5;
+    color: #fff;
+    font-size: 32px;
+}
+.title{
+    position: sticky;
+    top: 60px;
+    z-index: 9;
+}
+.alertsWrapper{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+.postWrapper{
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.post{
+    width: 60%;
+    padding: 12px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid grey;
+    border-radius: 10px;
+}
+.UserWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.postUser{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+.postUserImg{
+    width: 36px;
+    height: 36px;
+    margin-right: 10px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.remove{
+    color: #fa6b6b;
+    cursor: pointer;
+}
+.postContent{
+    padding: 8px;
+    font-size: 14px;
+    color: rgb(90, 90, 90);
+}
+.noPosts{
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    color: grey;
+}
