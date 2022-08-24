@@ -1,0 +1,23 @@
+.copyright{
+    width: 100%;
+    height: 50px;
+    padding: 14px 0;
+    padding-top: 20px;
+    margin-top: 10px;
+    background-color: #000;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    border-top-right-radius: 12px;
+    position: static;
+    bottom: -50px;
+    z-index: 9;
+}
+.colored a{
+    text-decoration: none;
+    font-size: 15px;
+    color: #0ff;
+    margin: 2.5px;
+}
