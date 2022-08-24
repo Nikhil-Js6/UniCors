@@ -1,0 +1,153 @@
+.profileWrapper{
+    margin-top: 50px;
+    min-height: calc(100vh - 110px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+.bg{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90px;
+    background-color: #1775e5;
+    color: #fff;
+    font-size: 32px;
+}
+.title{
+    position: sticky;
+    top: 60px;
+    z-index: 3;
+}
+.alertsWrapper{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.profileCard{
+    width: 65%;
+    margin-top: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px -2px rgba(0, 0, 0, 0.79);
+   -webkit-box-shadow: 0px 0px 10px -2px rgba(0, 0, 0, 0.79);
+   -moz-box-shadow: 0px 0px 10px -2px rgba(0, 0, 0, 0.79);
+}
+.cardHead{
+    width: 100%;
+    padding: 0 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.userImg{
+    width: 200px;
+    height: 200px;
+    padding: 2px;
+    border: 5px double rgb(223, 155, 255);
+    border-radius: 50%;
+    object-fit: cover;
+}
+.userInfo{
+    flex: 2;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.followInfo{
+    padding: 20px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.followers, .followings, .posts{
+    font-size: 20px;
+    font-weight: 500;
+    margin: 10px 25px;
+    color: #1775e5;
+}
+.buttons{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.button{
+    width: 50%;
+    text-align: center;
+    padding: 5px 12px;
+    margin: 0 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.follow{
+    color: #fff;
+    background-color: #2681f0;
+}
+.follow:hover{
+    background-color: #61a5f8;
+}
+.unfollow{
+    color: grey;
+    border: 1px solid grey;
+}
+.unfollow:hover{
+    color: #fff;
+    background-color: grey;
+}
+.message{
+    color: #1775e5;
+    border: 1px solid #1775e5;
+}
+.private{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: grey;
+}
+.cardBody{
+    width: 100%;
+    border-top: 1px solid grey;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+.username{
+    margin: 8px 0;
+    font-size: 20px;
+    color: #2681f0;
+}
+.name{
+    font-size: 16px;
+    font-weight: 600;
+}
+.about{
+    margin: 8px 0;
+    font-size: 15px;
+    color: rgb(70, 70, 70);
+}
+.post{
+    width: 65%;
+    padding: 20px;
+}
+.noPosts{
+    margin-top: 40px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    color: grey;
+}
