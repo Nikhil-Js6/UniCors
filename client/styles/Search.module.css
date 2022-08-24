@@ -1,0 +1,59 @@
+.formWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: rgb(99, 99, 99);
+}
+.message{
+    padding-top: 10px;
+    font-size: 14px;
+}
+.success{
+    color: rgb(23, 225, 23);
+}
+.error{
+    color: red;
+}
+.searchForm{
+    width: 100%;
+    margin: 8px 0;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.searchInput{
+    width: 100%;
+    resize: vertical;
+    font-family:"Times New Roman", Times, serif;
+    font-size: 16px;
+    padding: 8px;
+    border: none;
+    border-bottom: 1px solid rgb(150, 150, 150);
+    transition: all .3s ease-in-out;
+}
+.searchInput:focus{
+    outline: none;
+    border-bottom: 1px solid #1775e5;
+}
+.searchButton{
+    height: 32px;
+    width: 100px;
+    align-self: flex-end;
+    margin-left: 5px;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: inherit;
+    color: rgb(0, 149, 255);
+    border: 1.5px solid rgb(0, 149, 255);
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+.searchButton:focus{
+    outline: none;
+}
+.searchButton:hover{
+    color: #fff;
+    border: 1.5px solid #5293e4;
+    background-color: #5293e4;;
+}
