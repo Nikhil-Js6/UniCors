@@ -8,7 +8,6 @@
 }
 .card{
     width: 100%;
-    /* height: calc(100vh - 100px); */
     margin-top: 16px;
     display: flex;
     flex-direction: column;
@@ -162,14 +161,11 @@
 .commentSpan:hover{
     color: #5293e4;
 }
-
 .commentForm{
     display: flex;
     flex-direction: column;
     margin-top: 10px;
     padding: 8px;
-    /* border: 1px solid grey;
-    border-radius: 8px; */
 }
 .inputWrapper{
     display: flex;
@@ -302,4 +298,20 @@
 .deleteComment{
     cursor: pointer;
     color: #fe6e6e;
+}
+
+/***** Mobile View *****/
+
+@media (max-width: 480px) {
+    .card{
+        padding: 6px;
+        width: 100%;
+    }
+    .cardTop{
+        padding: 6px;
+    }
+    .postUserImg{
+        width: 32px;
+        height: 32px;
+    }
 }
