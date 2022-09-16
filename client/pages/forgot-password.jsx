@@ -19,7 +19,7 @@ const ForgotPassword = () => {
     
     const [state] = useContext(UserContext);
 
-    if(state && state.token) Router.push('/');
+    if (state && state.token) Router.push('/posts');
 
     const handleChange = (target) => {
         setMessage(false)
