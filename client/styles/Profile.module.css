@@ -19,7 +19,7 @@
 .title{
     position: sticky;
     top: 60px;
-    z-index: 9;
+    z-index: 2;
 }
 .alertsWrapper{
     width: 50%;
@@ -79,7 +79,6 @@
     font-weight: bold;
     color: #1775e5;
 }
-
 .list{
     margin-top: 16px;
     padding: 12px;
@@ -141,9 +140,9 @@
 
 /********** Followings ********/
 
-.followingsWrapper{
+.followingsWrapper, .followersWrapper{
     margin-top: 50px;
-    min-height: calc(100vh - 110px);
+    min-height: calc(100vh - 100px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -168,6 +167,32 @@
     align-self: flex-start;
     cursor: pointer;
 }
-.username{
 
+/***** Mobile View *****/
+
+@media (max-width: 480px) {
+    .bg{
+        height: 75px;
+        font-size: 28px;
+    }
+    .profile{
+        flex-direction: column-reverse;
+    }
+    .post{
+        padding: 10px;
+    }
+    .sidebar{
+        position: static;
+    }
+    .userFollow{
+        width: 100%;
+        justify-content: space-around;
+    }
+    .following{
+        width: 85%;
+    }
+    .backArrow{
+        top: 10px;
+        left: 10px;
+    }
 }
