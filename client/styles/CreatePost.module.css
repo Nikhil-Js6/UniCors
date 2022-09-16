@@ -30,7 +30,7 @@
     outline: none;
     border-bottom: 1px solid #1775e5;
     /* border-radius: 6px;
-    box-shadow: 1px 1px 10px 0px rgb(131, 194, 253); */
+    box-shadow: 0px 0px 10px 0px rgb(131, 194, 253); */
 }
 .imgWrapper{
     display: flex;
@@ -125,4 +125,15 @@
     color: #fff;
     border: 1.5px solid #5293e4;
     background-color: #5293e4;;
+}
+
+/***** Mobile View *****/
+
+@media ( max-width: 480px ) {
+    .createPostForm{
+        padding: 16px;
+    }
+    .bottomWrapper{
+        flex-direction: column;
+    }
 }
