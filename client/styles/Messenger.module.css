@@ -5,7 +5,6 @@
     align-items: flex-start;
     justify-content: space-between;
     overflow:-moz-hidden-unscrollable;
-    /* background-color: #121212; */
 }
 .conversations{
     flex: 1;
@@ -251,7 +250,7 @@
     font-family: roboto;
     border-radius: 10px;
     resize: none;
-    background-color: rgb(230, 230, 230);
+    background-color: rgb(235, 235, 235);
     color: rgb(80, 80, 80);
 }
 .textarea::-webkit-scrollbar{
@@ -277,4 +276,42 @@
 }
 .sendButton:focus{
     outline: none;
+}
+
+/***** Mobile View *****/
+
+@media (max-width: 480px) {
+    .messengerWrapper{
+        margin-top: 10px;
+        flex-direction: column;
+    }
+    .conversations{
+        width: 100%;
+        background-color: rgb(220, 220, 220);
+    }
+    .conversationsWrapper{
+        height: 50vh;
+    }
+    .conversation{
+        background-color: #fff;
+    }
+    .noConversationText{
+        padding: 16px;
+        text-align: center;
+    }
+    .secureMessage{
+        width: 90%;
+    }
+    .chatBoxBottom{
+        padding: 10px;
+        flex-direction: column;
+    }
+    .textarea{
+        width: 99%;
+    }
+    .sendButton{
+        margin-top: 10px;
+        align-self: flex-end;
+        background-color: #1775e5;
+    }
 }
