@@ -17,7 +17,6 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    font-size: 32px;
     padding: 20px;
 }
 .logo{
@@ -35,6 +34,16 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+}
+.authWrapper{
+    flex: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.menu{
+    flex: 1;
+    cursor: pointer;
 }
 .navbarOption{
     display: flex;
@@ -96,6 +105,7 @@
     position: absolute;
     top: 45px;
     right: 5%;
+    z-index: 10;
 }
 .option{
     width: 100%;
@@ -114,4 +124,24 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+/***** Mobile View *****/
+
+@media (max-width: 480px) {
+    .left{
+        flex: 1;
+        padding: 10px;
+    }
+    .logo{
+        font-size: 26px;
+        font-weight: 500;
+    }
+    .logoImg{
+        width: 32px;
+        margin-right: 5px;
+    }
+    .right{
+        flex: 5;
+    }
 }
