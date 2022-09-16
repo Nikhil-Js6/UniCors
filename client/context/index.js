@@ -8,6 +8,7 @@ const UserProvider = ({ children }) => {
 
     const [state, setState] = useState({
         user: {},
+        notification: [],
         token: ''
     });
 
@@ -26,7 +27,7 @@ const UserProvider = ({ children }) => {
         },
         function (error) {
             let res = error.response;
-            if (res.status === 403 && res.config && res.config.__isRetryRequest) {
+            if (res && res.status === 403) {
                 setState(null);
                 localStorage.removeItem('Unicors_User');
                 Router.push('/login');
