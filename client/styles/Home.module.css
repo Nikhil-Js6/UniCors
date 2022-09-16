@@ -20,3 +20,14 @@
 .cardWrapper{
     width: 60%;
 }
+
+/***** Mobile View *****/
+
+@media (max-width: 480px) {
+    .bg{
+        height: 75px;
+    }
+    .cardWrapper{
+        width: 95%;
+    }
+}
