@@ -3,8 +3,7 @@ import { UserContext } from '../context'
 import ForgotPasswordForm from '../components/forms/ForgotPasswordForm'
 import Router from 'next/router'
 import axios from 'axios'
-import styles from '../styles/register.module.css'
-
+import styles from '../styles/Register.module.css'
 
 const ForgotPassword = () => {
 
@@ -62,12 +61,11 @@ const ForgotPassword = () => {
     }
 
   return (
-    <div className={styles.registerWrapper}>
+    <div className={styles.forgotWrapper}>
         <span className={styles.bg}>
             <span className={styles.title}>Forgot Password</span>
         </span>
-        <div className={styles.register}>
-
+        <div className={styles.forgotForm}>
             <ForgotPasswordForm
                 email={email}
                 newPassword={newPassword}
