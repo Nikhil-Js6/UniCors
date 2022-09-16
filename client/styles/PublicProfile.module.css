@@ -1,4 +1,5 @@
 .profileWrapper{
+    width: 100%;
     margin-top: 50px;
     min-height: calc(100vh - 110px);
     display: flex;
@@ -19,7 +20,6 @@
 .title{
     position: sticky;
     top: 60px;
-    z-index: 3;
 }
 .alertsWrapper{
     width: 50%;
@@ -63,6 +63,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+.followWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .followInfo{
     padding: 20px 12px;
@@ -150,4 +155,29 @@
     display: flex;
     justify-content: center;
     color: grey;
+}
+
+/***** Mobile View *****/
+
+@media (max-width: 480px) {
+    .bg{
+        height: 75px;
+    }
+    .profileCard{
+        width: 95%;
+    }
+    .cardHead{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .followInfo{
+        flex-wrap: wrap;
+    }
+    .followWrapper{
+        justify-content: center;
+    }
+    .post{
+        width: 100%;
+        padding: 10px;
+    }
 }
