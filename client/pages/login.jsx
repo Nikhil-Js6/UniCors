@@ -88,7 +88,7 @@ const Login = () => {
         }
     }
 
-    if(state && state.token) Router.push('/');
+    if(state && state.token) Router.push('/posts');
 
   return (
     <div className={styles.loginWrapper}>
