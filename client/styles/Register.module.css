@@ -1,4 +1,5 @@
-.registerWrapper, .profileWrapper{
+.registerWrapper, .profileWrapper, .forgotWrapper{
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,14 +14,14 @@
     height: 110px;
     background-color: #1775e5;
     color: #fff;
-    font-size: 32px;
+    font-size: 30px;
 }
 .title{
     position: sticky;
     top: 50px;
-    z-index: 10;
+    z-index: 2;
 }
-.register, .profile{
+.register, .profile, .forgotForm{
     width: 50%;
     margin-top: 50px;
     margin-bottom: 16px;
@@ -33,7 +34,11 @@
     border: 1px solid transparent;
     position: relative;
 }
-.register:hover, .profile:hover{
+.forgotForm{
+    height: calc(100vh - 228px);
+    margin: 20px;
+}
+.register:hover, .profile:hover, .forgotForm:hover{
     border: 1px solid #1775e7;
 }
 .loginLink{
@@ -47,4 +52,18 @@
     margin-left: 5px;
     color: #1775e5;
     cursor: pointer;
+}
+
+/***** Mobile View *****/
+
+@media (max-width: 480px) {
+    .bg{
+        height: 90px;
+    }
+    .register, .forgotForm, .profile{
+        width: 90%;
+    }
+    .forgotForm{
+        width: 95%;
+    }
 }
