@@ -3,7 +3,7 @@ import { UserContext } from '../../context'
 import UserRoute from '../../routes/UserRoute'
 import Conversation from '../../components/messenger/Conversation'
 import Message from '../../components/messenger/Message'
-import { LockOutlined, SearchOutlined, SendOutlined } from '@ant-design/icons'
+import { LockOutlined, SendOutlined } from '@ant-design/icons'
 import styles from '../../styles/Messenger.module.css'
 import axios from 'axios'
 import io from 'socket.io-client'
@@ -30,7 +30,6 @@ const Messenger = () => {
 
     useEffect(() => {
         socket?.on('get-message', (text) => {
-            console.log(text);
             fetchMessages();
         });
     }, []);
@@ -82,8 +81,7 @@ const Messenger = () => {
         try {
             const res = await axios.post('/send-message', { conversationId, text });
             if (res.data) {
-                socket?.emit(`send-message`, { 
-                    sender: res.data.sender, 
+                socket?.emit(`send-message`, {
                     text: res.data.text 
                 });
             }
