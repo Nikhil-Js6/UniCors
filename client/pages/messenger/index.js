@@ -7,6 +7,7 @@ import { LockOutlined, SearchOutlined, SendOutlined } from '@ant-design/icons'
 import styles from '../../styles/Messenger.module.css'
 import axios from 'axios'
 import io from 'socket.io-client'
+import Search from '../../components/Search'
 
 const socket = io(process.env.NEXT_PUBLIC_SOCKETIO, {
     reconnection: true,
@@ -17,12 +18,13 @@ const Messenger = () => {
     const [state] = useContext(UserContext);
 
     const [conversations, setConversations] = useState([]);
-
     const [messages, setMessages] = useState([]);
 
     const [conversationId, setConversationId] = useState(null);
 
     const [text, setText] = useState('');
+
+    const [searchUsers, setSearchUsers] = useState([]);
 
     const scrollRef = useRef();
 
@@ -98,10 +100,17 @@ const Messenger = () => {
             <div className={styles.messengerWrapper}>
                 <div className={styles.conversations}>
                     <span className={styles.searchWrapper}>
-                        <SearchOutlined style={{ color: '#1775e5'}}/>
-                        <input className={styles.searchInput} placeholder='Search friends..' />
+                        <Search 
+                            searchUsers={searchUsers}
+                            setSearchUsers={setSearchUsers}
+                            setConversationId={setConversationId}
+                            messenger={true}
+                        />
+                        {/* <SearchOutlined style={{ color: '#1775e5'}}/>
+                        <input className={styles.searchInput} placeholder='Search friends..' /> */}
                     </span>
                     <div className={styles.conversationsWrapper}>
+                        <span className={styles.conversationTitle}>Conversations:</span>
                     {
                         conversations.map(conversation => (
                             <Conversation 
@@ -132,7 +141,9 @@ const Messenger = () => {
                                             key={message._id}
                                         />
                                     ))
-                                  : <span className={styles.noMessageText}>Start the chat by sending a message</span>
+                                  : <span className={styles.noMessageText}>
+                                        Start the chat by sending a message
+                                    </span>
                             }
                             </div>
                             <div className={styles.chatBoxBottom}>
