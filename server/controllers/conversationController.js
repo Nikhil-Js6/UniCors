@@ -1,4 +1,3 @@
-const User = require('../models/User');
 const Conversation = require('../models/Conversation');
 
 class ConversationController {
@@ -8,10 +7,17 @@ class ConversationController {
         const { senderId, recieverId } = req.body;
 
         try {
+            const previousConversation = await Conversation.findOne({
+                members: [senderId, recieverId]
+            });
+            
+            if (previousConversation) {
+                return res.status(200).json(previousConversation); 
+            }
+
             const newConversation = new Conversation({
-                members: [senderId, recieverId],
-                // req.user._id
-            },);
+                members: [senderId, recieverId]
+            });
 
             const savedConversation = await newConversation.save();
             
@@ -27,7 +33,7 @@ class ConversationController {
         const userId = req.params.id;
 
         try {
-            let conversations = await Conversation.find({
+            const conversations = await Conversation.find({
                 members: { $in : [userId] }
             })
                .sort({ createdAt: -1 });
