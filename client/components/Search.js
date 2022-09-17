@@ -29,7 +29,8 @@ const Search = ({ searchUsers, setSearchUsers, setConversationId, messenger, han
         }, 3500);
     }
 
-    const handleSearch = async () => {
+    const handleSearch = async (e) => {
+        e && e.preventDefault();
         if (query) {
             setLoading(true);
             try {
