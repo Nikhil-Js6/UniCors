@@ -2,7 +2,7 @@ import Link from 'next/link'
 import styles from '../../styles/Profile.module.css'
 import { SyncOutlined } from '@ant-design/icons'
 
-const FollowCard = ({ page, userArray, loading, handleRemove }) => {
+const FollowCard = ({ page, userArray, loading, handleUnfollow, handleRemove }) => {
 
     return (
         userArray.length
