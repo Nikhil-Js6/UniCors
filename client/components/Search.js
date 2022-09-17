@@ -1,23 +1,25 @@
-import { useState, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { UserContext } from '../context'
 import styles from '../styles/Search.module.css'
 import { SearchOutlined } from '@ant-design/icons'
 import People from './cards/People'
 import axios from 'axios'
 
+const Search = ({ searchUsers, setSearchUsers, setConversationId, messenger, handleFollow, handleUnfollow }) => {
 
-const Search = ({ searchUsers, setSearchUsers, fetchUserPosts, fetchFollowings, handleFollow, handleUnfollow }) => {
-
-    const [state, setState] = useContext(UserContext);
+    const [state] = useContext(UserContext);
 
     const [query, setQuery] = useState('');
-    const [users, setUsers] = useState([]);
 
     const [message, setMessage] = useState('');
     const [type, setType] = useState(1);
 
     const [loading, setLoading] = useState(false);
     const [icon, setIcon] = useState(false);
+
+    useEffect(() => {
+        handleSearch();
+    }, [query]);
 
     const alertMessage = (msg, type) => {
         setMessage(msg);
@@ -27,22 +29,23 @@ const Search = ({ searchUsers, setSearchUsers, fetchUserPosts, fetchFollowings, 
         }, 3500);
     }
 
-    const handleSearch = async (e) => {
-        e.preventDefault();
-        // setQuery('');
+    const handleSearch = async () => {
         if (query) {
+            setLoading(true);
             try {
                 const res = await axios.get(`/search-user/${query}`);
                 if (!res.data.length) {
                     alertMessage('No Users Found!', 2); 
                     return;
                 }
-                setSearchUsers(res.data);
+                const filteredUsers =  res.data.filter(user => user._id !== state.userInfo._id);
+                setSearchUsers(filteredUsers);
                 alertMessage('User fetched successfully!', 1);
-                console.log(users);
+                setLoading(false);
             } 
             catch (err) {
                 console.log(err);
+                setLoading(false);
             }
         }
     }
@@ -62,14 +65,21 @@ const Search = ({ searchUsers, setSearchUsers, fetchUserPosts, fetchFollowings, 
                     onChange={(e) => {
                         setSearchUsers([]);
                         setQuery(e.target.value);
-                        handleSearch(e);
                     }}
                 />
                 <button type='submit' className={styles.searchButton}>Search <SearchOutlined /></button>
             </form>
         {
             searchUsers?.map((user) => (
-                <People user={user} loading={loading} handleFollow={handleFollow} handleUnfollow={handleUnfollow} />
+                <People 
+                    user={user} 
+                    loading={loading} 
+                    messenger={messenger}
+                    handleFollow={handleFollow} 
+                    handleUnfollow={handleUnfollow} 
+                    setConversationId={setConversationId}
+                    key={user._id}
+                />
             ))
         }
         </div>
