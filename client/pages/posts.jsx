@@ -23,7 +23,6 @@ const Home = ({ posts }) => {
                 return post._id !== deletedPost._id;
             })
             setPostFeed(newPosts);
-            console.log(newPosts);
         });
     }, []);
 
@@ -49,6 +48,12 @@ const Home = ({ posts }) => {
                 property='og:image:secure_url' 
                 content='https://unicors.com/images/noImage.com'
             />
+            
+            <meta name="theme-color" content="#000000" />
+
+            <link rel='icon' href='/icon.ico'/>
+            <link rel='manifest' href='/manifest.json'/>
+            <link rel='apple-touch-icon' href='/icons/ios/192.png'/>
         </Head>
     ) 
 
