@@ -1,14 +1,15 @@
+import { UserProvider } from '../context'
 import Navbar from './Navbar'
 import Footer from './Footer'
 
 const Layout = ({ children }) => {
-  return (
-    <div>
-        <Navbar />
-        {children}
-        <Footer />
-    </div>
-  )
+    return (
+        <UserProvider>
+            <Navbar />
+                {children}
+            <Footer />
+        </UserProvider>
+    )
 }
 
 export default Layout
