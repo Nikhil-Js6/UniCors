@@ -12,14 +12,14 @@ const FollowCard = ({ page, userArray, loading, handleUnfollow, handleRemove }) 
                     { 
                         user.image
                             ? <span className={styles.peopleImgWrapper}>
-                                <img className={styles.peopleImg} src={user.image.url} style={{ width: 36 }} />
+                                <img className={styles.peopleImg} src={user?.image.url} style={{ width: 36 }} />
                             </span>
                             : <span className={styles.peopleImgWrapper}>
                                 <img className={styles.peopleImg} src='/noImage.jpg' style={{ width: 36 }} />
                             </span>
                     }
                         <span className={styles.username}>
-                            <Link href={`/user/profile/${user._id}`}>
+                            <Link href={`/user/profile/${user?._id}`}>
                                 {user.name}
                             </Link>
                         </span>
