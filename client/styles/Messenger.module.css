@@ -46,6 +46,11 @@
 
 /***** Conversation *****/
 
+.conversationTitle{
+    font-size: 16px;
+    padding: 16px 0;
+    color: grey;
+}
 .conversation{
     width: 95%;
     margin-top: 12px;
@@ -155,11 +160,11 @@
     background-color: rgb(195, 195, 195);
 }
 .noMessageText{
-    /* padding-top: 10px; */
     width: 50%;
     align-self: center;
+    text-align: center;
     padding: 10px;
-    font-size: 16px;
+    font-size: 14px;
     background-color: #61a5f8;
     color: #fff;
     border-radius: 10px;
@@ -299,19 +304,23 @@
         padding: 16px;
         text-align: center;
     }
+    .noMessageText{
+        width: 90%;
+        padding: 10px 50px;
+    }
     .secureMessage{
         width: 90%;
     }
     .chatBoxBottom{
         padding: 10px;
-        flex-direction: column;
+        /* flex-direction: column; */
     }
     .textarea{
         width: 99%;
     }
     .sendButton{
         margin-top: 10px;
-        align-self: flex-end;
+        /* align-self: flex-end; */
         background-color: #1775e5;
     }
 }
