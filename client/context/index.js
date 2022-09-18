@@ -27,7 +27,7 @@ const UserProvider = ({ children }) => {
         },
         function (error) {
             let res = error.response;
-            if (res && res.status === 403) {
+            if (res && res.status === 403 && res.config) {
                 setState(null);
                 localStorage.removeItem('Unicors_User');
                 Router.push('/login');
