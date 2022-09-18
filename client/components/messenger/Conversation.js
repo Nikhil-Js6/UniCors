@@ -8,7 +8,7 @@ const conversation = ({ conversation, setConversationId }) => {
 
     const [state] = useContext(UserContext);
 
-    const userId = conversation.members.filter(id => id !== state.userInfo._id);
+    const userId = conversation.members.filter(id => id !== state?.userInfo?._id);
 
     const [user, setUser] = useState([]);
 
@@ -33,7 +33,6 @@ const conversation = ({ conversation, setConversationId }) => {
             className={styles.conversation} 
             onClick={() => {
                 setConversationId(conversation._id)
-                console.log(user);
             }}
         >
             <div className={styles.imageWrapper}>
@@ -45,33 +44,10 @@ const conversation = ({ conversation, setConversationId }) => {
                 <div className={styles.msg}>{'About User'}</div>
             </div>
             <div className={styles.msgIcons}>
-                <CheckOutlined style={{ color: '#1775e5'}}/>
+                <CheckOutlined style={{ color: '#1775e5' }}/>
             </div>
         </div>
     )
 }
 
 export default conversation
-
-{/* <div className={styles.conversation}>
-    <div className={styles.imageWrapper}>
-        <img className={styles.chatUserImg} src={'/noImage.jpg'}/>
-        <span className={styles.online}></span>
-    </div>
-    <div className={styles.user}>
-        <div className={styles.username}>Username</div>
-        <div className={styles.typing}>typing...</div>
-    </div>
-    <span className={styles.msgCount}>3</span>
-</div> */}
-{/* <div className={styles.conversation}>
-    <div className={styles.imageWrapper}>
-        <img className={styles.chatUserImg} src={'/noImage.jpg'} />
-        <span className={styles.online}></span>
-    </div>
-    <div className={styles.user}>
-        <div className={styles.username}>Username</div>
-        <div className={styles.typing}>typing...</div>
-    </div>
-    <span className={styles.msgCount}>3</span>
-</div> */}
