@@ -1,10 +1,10 @@
 import { useState, useEffect, useContext } from 'react'
+import { UserContext } from '../../../context';
 import { useRouter } from 'next/router'
 import Link from 'next/link';
-import { UserContext } from '../../../context';
+import FollowCard from '../../../components/cards/FollowCard';
 import { Alert } from '../../../utils/Alerts';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import FollowCard from '../../../components/cards/FollowCard';
 import styles from '../../../styles/Profile.module.css'
 import axios from 'axios';
 
@@ -47,10 +47,10 @@ const Followers = () => {
     }
 
     return (
-        <div className={styles.followingsWrapper}>
+        <div className={styles.followersWrapper}>
             <span className={styles.bg}>
                 <span className={styles.title}>
-                    { userId === state?.userInfo._id ? 'Followers' : `${user}'s Followers` }
+                    { userId === state?.userInfo?._id ? 'Followers' : `${user}'s Followers` }
                 </span>
             </span>
             <div className={styles.alertsWrapper}>
