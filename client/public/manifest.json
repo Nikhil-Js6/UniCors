@@ -1,0 +1,43 @@
+{
+    "name": "UniCors",
+    "short_name": "UniCors",
+    "description": "UniCors is Social Media Application made using Next.js",
+    "theme_color": "#000000",
+    "background_color": "#1775e5",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "/maskable.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "maskable"
+        },
+        {
+            "src": "/icons/icon-128x128.png",
+            "type": "image/png",
+            "sizes": "128x128"
+        },
+        {
+            "src": "/icons/icon-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/icons/icon-256x256.png",
+            "type": "image/png",
+            "sizes": "256x256"
+        },
+        {
+            "src": "/icons/icon-384x384.png",
+            "type": "image/png",
+            "sizes": "384x384"
+        },
+        {
+            "src": "/icons/icon-512x512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}
