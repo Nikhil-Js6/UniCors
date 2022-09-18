@@ -1,4 +1,4 @@
-import styles from '../../styles/form.module.css'
+import styles from '../../styles/Form.module.css'
 import Image from 'next/image'
 import { Alert } from '../../utils/Alerts'
 import { SyncOutlined } from '@ant-design/icons'
